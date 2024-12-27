@@ -139,11 +139,6 @@ A continuación se detallan los endpoints disponibles, los cuales puedes probar 
 
 Puedes abrir el archivo `cart-api/http-collection.http` con un editor de texto o una herramienta compatible con colecciones HTTP (como [Postman](https://www.postman.com/) o el porpio IDE PhpStorm) para realizar las peticiones directamente desde allí.
 
-
-Aquí tienes el apartado que explica cómo ejecutar los tests y acceder al informe de cobertura:
-
-markdown
-Copiar código
 ## 🧪 Pruebas y Cobertura
 
 Este proyecto incluye una suite de pruebas automatizadas para asegurar que el código funciona correctamente. Además, la cobertura de las pruebas es del **100%**
