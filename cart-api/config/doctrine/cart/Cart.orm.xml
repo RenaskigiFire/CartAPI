@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://raw.githubusercontent.com/doctrine/orm/main/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Entity\Cart\Cart" table="carts">
+        <id name="id" type="string" column="id">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="sessionId" type="unique_id" column="session_id" />
+        <field name="userId" type="unique_id" column="user_id" nullable="true"/>
+        <field name="productCount" type="integer" column="product_count" />
+        <field name="cartContents" type="cart_content_collection" column="cart_contents"/>
+    </entity>
+</doctrine-mapping>

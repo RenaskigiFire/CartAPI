@@ -1,0 +1,26 @@
+doctrine:
+  dbal:
+    driver: 'pdo_mysql'
+    server_version: '8.0'
+    url: '%env(resolve:DATABASE_URL)%'
+    types:
+      product_reference: App\Infrastructure\Persistence\Doctrine\Type\Product\ProductReferenceType
+      unique_id: App\Infrastructure\Persistence\Doctrine\Type\Shared\UniqueIdType
+      cart_units: App\Infrastructure\Persistence\Doctrine\Type\Cart\CartUnitsType
+      cart_content_collection: App\Infrastructure\Persistence\Doctrine\Type\Cart\CartContentCollectionType
+
+  orm:
+    auto_generate_proxy_classes: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    mappings:
+      Product:
+        type: xml
+        dir: '%kernel.project_dir%/config/doctrine/product/'
+        prefix: 'App\Domain\Entity\Product'
+        is_bundle: false
+      Cart:
+        type: xml
+        dir: '%kernel.project_dir%/config/doctrine/cart/'
+        prefix: 'App\Domain\Entity\Cart'
+        is_bundle: false

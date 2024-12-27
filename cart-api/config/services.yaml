@@ -1,0 +1,70 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # Generators
+    App\Infrastructure\Service\Generator\UUIDGenerator: ~
+    App\Domain\Service\Generator\IdentityGeneratorInterface: '@App\Infrastructure\Service\Generator\UUIDGenerator'
+
+    # Builder
+    App\Domain\Service\Builder\CartBuilder:
+        arguments:
+            $identityGenerator: '@App\Domain\Service\Generator\IdentityGeneratorInterface'
+
+    # Repositories
+    App\Infrastructure\Persistence\Doctrine\Repository\DoctrineProductRepository: ~
+    App\Domain\Repository\ProductRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\DoctrineProductRepository'
+
+    App\Infrastructure\Persistence\Doctrine\Repository\DoctrineCartRepository: ~
+    App\Domain\Repository\CartRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\DoctrineCartRepository'
+
+    # Domain Services
+    App\Domain\Service\CartItemManagementService: ~
+
+    # Use Cases
+    App\Application\UseCase\Cart\Create\CreateCartUseCase:
+        arguments:
+            $cartBuilder: '@App\Domain\Service\Builder\CartBuilder'
+            $cartRepository: '@App\Domain\Repository\CartRepositoryInterface'
+
+    App\Application\UseCase\Cart\AddTo\AddToCartUseCase:
+        arguments:
+            $cartRepository: '@App\Domain\Repository\CartRepositoryInterface'
+            $productRepository: '@App\Domain\Repository\ProductRepositoryInterface'
+            $cartItemManagementService: '@App\Domain\Service\CartItemManagementService'
+
+    App\Application\UseCase\Cart\RemoveFrom\RemoveFromCartUseCase:
+        arguments:
+            $cartRepository: '@App\Domain\Repository\CartRepositoryInterface'
+            $productRepository: '@App\Domain\Repository\ProductRepositoryInterface'
+            $cartItemManagementService: '@App\Domain\Service\CartItemManagementService'
+
+    App\Application\UseCase\Cart\Get\GetCartUseCase:
+        arguments:
+            $cartRepository: '@App\Domain\Repository\CartRepositoryInterface'
+
+    App\Application\UseCase\Cart\Purchase\PurchaseCartUseCase:
+        arguments:
+            $cartRepository: '@App\Domain\Repository\CartRepositoryInterface'
+
+    App\Application\UseCase\Product\Create\CreateProductUseCase:
+        arguments:
+            $productRepository: '@App\Domain\Repository\ProductRepositoryInterface'
+
+    # Infrastructure Services
+    App\Infrastructure\Service\Validator\HttpRequestContentValidator: ~
+    App\Infrastructure\Service\Transformer\CartDataTransformer: ~
+
+    # Entry Points
+    App\Infrastructure\EntryPoint\:
+        resource: '../src/Infrastructure/EntryPoint/*'
+        tags: [ 'controller.service_arguments' ]

@@ -1,0 +1,61 @@
+##
+
+# @name Create cart
+POST http://localhost:8000/api/v1/cart/create
+Content-Type: application/json
+
+{
+  "session_id": "cc36d863-d297-4baa-a52e-137c8d494340",
+  "user_id": "5588958d-74e0-4370-9c76-176212138a67"
+}
+###
+
+# @name Create product
+POST http://localhost:8000/api/v1/product/create
+Content-Type: application/json
+
+{
+  "product_reference": "P000036",
+  "name": "Sun glasses"
+}
+###
+
+# @name Add to cart
+POST http://localhost:8000/api/v1/cart/add-to
+Content-Type: application/json
+
+{
+  "cart_id": "d0a86f87-5e6a-4bff-97e1-e76c12eaf814",
+  "product_reference": "P000036",
+  "quantity": 6
+}
+###
+
+# @name Remove from cart
+POST http://localhost:8000/api/v1/cart/remove-from
+Content-Type: application/json
+
+{
+"cart_id": "d0a86f87-5e6a-4bff-97e1-e76c12eaf814",
+"product_reference": "P000036",
+"quantity": 3
+}
+###
+
+# @name Cart product count
+POST http://localhost:8000/api/v1/cart/product-units-count
+Content-Type: application/json
+
+{
+  "cart_id": "d0a86f87-5e6a-4bff-97e1-e76c12eaf814"
+}
+
+###
+
+# @name Cart pourchase
+POST http://localhost:8000/api/v1/cart/purchase
+Content-Type: application/json
+
+{
+  "cart_id": "d0a86f87-5e6a-4bff-97e1-e76c12eaf814"
+}

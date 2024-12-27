@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://raw.githubusercontent.com/doctrine/orm/main/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Entity\Product\Product" table="products">
+        <id name="reference" type="product_reference" column="reference">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="name" type="string" length="255"/>
+    </entity>
+
+</doctrine-mapping>
